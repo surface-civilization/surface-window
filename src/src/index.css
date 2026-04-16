@@ -1,0 +1,53 @@
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #050810;
+  font-family: 'Space Mono', monospace;
+  color: #c8d8e8;
+  overflow: hidden;
+}
+
+@keyframes surface-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Storm alert pulse — fired by WeatherStatus when a new district enters surge.
+   Duration 1.8 s, plays once, no fill. Brief scale + opacity expand.
+   Kept in CSS rather than inline to allow easy media-query suppression. */
+@keyframes surface-storm-alert {
+  0%   { transform: scaleX(1);    opacity: 0.8; }
+  25%  { transform: scaleX(1.05); opacity: 1.0; }
+  65%  { transform: scaleX(1.02); opacity: 1.0; }
+  100% { transform: scaleX(1);    opacity: 0.8; }
+}
+
+/* GlobeVoice sentence fade-in — brief upward drift + opacity rise. */
+@keyframes surface-voice-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* GlobeVoice sentence fade-out — gentle upward exit. */
+@keyframes surface-voice-out {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+}
+
+/* Respect prefers-reduced-motion: freeze the loading spinner. */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes surface-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(0deg); }
+  }
+  @keyframes surface-storm-alert {
+    from { transform: scaleX(1); opacity: 0.8; }
+    to   { transform: scaleX(1); opacity: 0.8; }
+  }
+}
